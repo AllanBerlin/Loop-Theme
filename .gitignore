@@ -1,0 +1,14 @@
+# Node / Grunt
+node_modules
+scss
+Gruntfile.js
+
+# System files
+*.DS_Store
+*[Tt]humbs.db
+*.Trashes
+*.log
+.idea/
+
+# Package Lock
+package-lock.json
