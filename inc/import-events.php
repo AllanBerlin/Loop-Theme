@@ -22,6 +22,8 @@ if( defined( 'WP_CLI' ) && WP_CLI ) {
 
       // if contains data then loop over it
       if( !empty( $eventsData ) ) {
+        $emailFlag = '';
+
         foreach( $eventsData as $event ) {
           $eventTitle = $event->title;
           $eventID = $event->id;
@@ -58,8 +60,8 @@ if( defined( 'WP_CLI' ) && WP_CLI ) {
             // give output
             WP_CLI::success( 'Importing this event: ' . $eventTitle );
 
-            // send the email notification
-            $this->send_success_email('imported');
+            // set the email notification type
+            $emailFlag = 'imported';
           } else {
             wp_update_post( $eventContent, true );
 
@@ -70,9 +72,12 @@ if( defined( 'WP_CLI' ) && WP_CLI ) {
             WP_CLI::success( 'Updating this event: ' . $eventTitle );
 
             // send the email notification
-            $this->send_success_email('updated');
+            $emailFlag = 'updated';
           }
         }
+
+        // send the email notification
+        $this->send_success_email( $emailFlag );
       }
     }
 
@@ -84,12 +89,12 @@ if( defined( 'WP_CLI' ) && WP_CLI ) {
 
     private function send_success_email( $eventStatus ) {
       // Destination email address.
-      $to = 'allanfitzpatrick9@gmail.com';
+      $to = 'logging@agentur-loop.com';
 
       // Email subject.
       $subject = ucfirst( $eventStatus ) . ': complete';
 
-      $body = '';
+      $body = 'Importing Events: was completed at '. date("d-m-Y H:m:s"). "\r\n";
 
       $args = array(
         'post_type' => 'events',
@@ -102,9 +107,9 @@ if( defined( 'WP_CLI' ) && WP_CLI ) {
       foreach( $events as $event ) {
         // Email body message depending on event status (imported or updated)
         if( $eventStatus === 'imported' ) {
-          $body = 'Importing Events: was completed at '. date("d-m-Y H:m:s"). "\r\n" .'Events Imported: '.$event->post_title. "\r\n";
+          $body .= 'Imported: '.$event->post_title. "\r\n";
         } else {
-          $body = 'Updating Events: was completed at '. date("d-m-Y H:m:s"). "\r\n" .'Events Updated: '.$event->post_title. "\r\n";
+          $body .= 'Updated: ' .$event->post_title. "\r\n";
         }
       }
 
