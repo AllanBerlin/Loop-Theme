@@ -4,6 +4,7 @@ CMS developer test
 Loop Theme is a custom starter theme for the Loop CMS developer test.
 
 ## Instructions to get started
+* Clone the repository by running the command in your terminal ```git clone https://github.com/AllanBerlin/loop.git```
 * Install the theme directly within [WP-CLI](http://wp-cli.org/) or uploading through SFTP to your dedicated server or in the Wordpress admin
 * Once active, SSH into your server as the user that owns the website you would like to install the theme on
   Use the cd command to switch to the document root directory of your website
