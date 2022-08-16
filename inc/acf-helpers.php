@@ -17,4 +17,4 @@ add_filter('acf/settings/url', 'loop_acf_settings_url');
 function loop_acf_settings_show_admin( $show_admin ) {
   return false;
 }
-//add_filter('acf/settings/show_admin', 'loop_acf_settings_show_admin');
+add_filter('acf/settings/show_admin', 'loop_acf_settings_show_admin');
